@@ -14,7 +14,7 @@ fn main() {
     }
 
     let config = Config::new(&args).unwrap_or_else(|err| {
-        eprintln!("Error while parsing argumnts: {}", err);
+        eprintln!("Error while parsing arguments: {}", err);
         exit(1);
     });
 
