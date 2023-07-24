@@ -76,7 +76,7 @@ impl App {
         let mut result = String::from(line);
 
         for letter in query.captures(line).unwrap().iter().flatten() {
-            result = result.replace(letter.as_str(), &letter.as_str().red().to_string());
+            result.replace_range(letter.range(), &letter.as_str().red().to_string())
         }
 
         result
