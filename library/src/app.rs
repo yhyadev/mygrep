@@ -61,15 +61,7 @@ impl App {
     }
 
     fn search<'a>(&self, query: &'a Regex, content: &'a str) -> Vec<&'a str> {
-        let mut results = Vec::new();
-
-        for line in content.lines() {
-            if query.is_match(line) {
-                results.push(line)
-            }
-        }
-
-        results
+        content.lines().filter(|l| query.is_match(l)).collect()
     }
 
     fn highlight<'a>(&self, query: &'a Regex, line: &'a str) -> String {
