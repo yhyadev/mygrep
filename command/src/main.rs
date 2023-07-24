@@ -6,14 +6,12 @@ use std::env::args;
 use std::process::exit;
 
 fn main() {
-    let args: Vec<String> = args().collect();
-
-    if args.len() == 1 {
+    if args().collect::<Vec<String>>().len() == 1 {
         help_message();
         exit(1);
     }
 
-    let config = Config::new(&args).unwrap_or_else(|err| {
+    let config = Config::build(args()).unwrap_or_else(|err| {
         eprintln!("Error while parsing arguments: {}", err);
         exit(1);
     });

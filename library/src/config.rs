@@ -6,13 +6,18 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Config, String> {
-        if args.len() < 3 {
-            return Err("Not enough arguments".to_string());
-        }
+    pub fn build(mut args: impl Iterator<Item = String>) -> Result<Config, String> {
+        args.next();
 
-        let query = args[1].clone();
-        let file_path = PathBuf::from(&args[2]);
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err(String::from("You must specify a query")),
+        };
+
+        let file_path = match args.next() {
+            Some(arg) => PathBuf::from(arg),
+            None => return Err(String::from("The file to grep is required")),
+        };
 
         Ok(Config { query, file_path })
     }
